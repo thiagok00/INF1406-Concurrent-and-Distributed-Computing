@@ -1,8 +1,23 @@
-
+import java.util.concurrent.atomic.AtomicBoolean;
+/* Implementação com problemas de corrida 
+*Exemplo de um deadlock possivel:
+*
+Filosofo 0 esta pensando.
+Filosofo 1 esta pensando.
+Filosofo 2 esta pensando.
+Filosofo 3 esta pensando.
+Filosofo 4 esta pensando.
+Filosofo 3 pegou garfo 3.
+Filosofo 0 pegou garfo 0.
+Filosofo 4 pegou garfo 4.
+Filosofo 2 pegou garfo 2.
+Filosofo 1 pegou garfo 1.
+*
+*/
 public class Filosofo implements Runnable {
 
 	private static int numFilosofos = 0;
-	private static volatile boolean[] forks = {true,true,true,true,true};
+	private static AtomicBoolean forks[] = new AtomicBoolean[5];
 	private int myNum;
 	
 	Filosofo() {
@@ -11,20 +26,17 @@ public class Filosofo implements Runnable {
 	}
 	void think() {
 		try {
-			Thread.sleep(2000);
 			System.out.println("Filosofo "+myNum+" esta pensando.");
+			Thread.sleep(2000);	
 		}
 		catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
 	void take_fork(int fork) {
-		
-		while(forks[fork] == false);
 	
-		forks[fork] = false;	
-		System.out.println("Filosofo "+myNum+" pegou garfo "+fork+".");
-			
+		while(forks[fork].compareAndSet(true, false) == false);
+		System.out.println("Filosofo "+myNum+" pegou garfo "+fork+".");		
 		
 	}
 	void eat()   {
@@ -37,8 +49,9 @@ public class Filosofo implements Runnable {
 		}
 	}
 	void put_fork(int fork) {
-		forks[fork] = true;
 		System.out.println("Filosofo "+myNum+" largou o garfo "+fork+".");
+		forks[fork].set(true);;
+		
 	}
 	
 	@Override
@@ -58,6 +71,12 @@ public class Filosofo implements Runnable {
 	public void mynums() {
 		System.out.println(myNum);
 	}
+	
+	static void putAllForks() {
+		for (int i = 0 ; i < 5; i++)
+			forks[i] = new AtomicBoolean(true);
+		
+	}
 public static void main(String[] args) {
 	
 	Filosofo f1 = new Filosofo();
@@ -65,7 +84,8 @@ public static void main(String[] args) {
 	Filosofo f3 = new Filosofo();
 	Filosofo f4 = new Filosofo();
 	Filosofo f5 = new Filosofo();
-
+	Filosofo.putAllForks();
+	
 	(new Thread(f1)).start();
 	(new Thread(f2)).start();
 	(new Thread(f3)).start();
