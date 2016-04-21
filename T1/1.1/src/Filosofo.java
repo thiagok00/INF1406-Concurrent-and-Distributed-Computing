@@ -1,5 +1,6 @@
-import java.util.concurrent.atomic.AtomicBoolean;
-/* Implementação com problemas de corrida 
+/* Thiago Klein de Angelis - 1321929
+*  Implementação do problema "Jantar dos Filósofos", para materia INF1406 PUC-RIO.
+ Implementação com problemas de corrida 
 *Exemplo de um deadlock possivel:
 *
 Filosofo 0 esta pensando.
@@ -14,6 +15,8 @@ Filosofo 2 pegou garfo 2.
 Filosofo 1 pegou garfo 1.
 *
 */
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class Filosofo implements Runnable {
 
 	private static int numFilosofos = 0;

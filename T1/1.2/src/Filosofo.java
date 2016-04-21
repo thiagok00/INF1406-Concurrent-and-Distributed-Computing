@@ -1,7 +1,8 @@
-import java.util.concurrent.Semaphore;
-/*
-*
+/* Thiago Klein de Angelis - 1321929
+*  Implementação do problema "Jantar dos Filósofos", para materia INF1406 PUC-RIO.
 */
+import java.util.concurrent.Semaphore;
+
 enum State {
 	Thinking,
 	Hungry,
