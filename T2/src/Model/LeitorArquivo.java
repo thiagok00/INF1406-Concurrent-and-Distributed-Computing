@@ -1,16 +1,14 @@
-package Controller;
+package Model;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-import Model.Parametros;
-
 public class LeitorArquivo {
 
 
 	
-	public double[][][] inputMatrizes() {
+	public void inputMatrizes() {
 		
 		Parametros p = Parametros.getIstance();
 		String path = p.getPathArqEntrada();
@@ -39,7 +37,7 @@ public class LeitorArquivo {
 				}
 			}
 		}
-		return vet;		
+		p.setMatrizes(vet);
 	}
 
 	

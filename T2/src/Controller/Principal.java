@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.LeitorArquivo;
 import Model.Parametros;
 
 public class Principal {
@@ -36,7 +37,6 @@ public class Principal {
 		
 		p.printParametros();
 	
-		
 		LeitorArquivo input = new LeitorArquivo();
 		input.inputMatrizes();
 		
