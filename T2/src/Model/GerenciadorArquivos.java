@@ -1,10 +1,12 @@
 package Model;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class LeitorArquivo {
+public class GerenciadorArquivos {
 
 
 	
@@ -38,7 +40,36 @@ public class LeitorArquivo {
 			}
 		}
 		p.setMatrizes(vet);
+		in.close();
+	}
+	
+	public void outputResultado() {
+		Parametros p = Parametros.getIstance();
+		int tam = p.getTamMatriz();
+		double[][] resultado = p.getMatrizResultado();
+		FileWriter out = null;
+		try {
+			out = new FileWriter("resultado.txt");
+		}
+		catch (Exception e) {
+			System.out.println("Erro abrir arquivo resultado.txt");
+			System.exit(1);
+		}
+		
+		PrintWriter arq = new PrintWriter(out);
+
+		for(int i = 0; i < tam; i++ ) {
+			String linha = "";
+			for(int j = 0; j < tam; j++) {
+				linha =  linha + resultado[i][j] + " ";
+			}
+			System.out.println(linha);
+			arq.println(linha);
+		}
+		
+		arq.close();
 	}
 
 	
 } //End of Class
+

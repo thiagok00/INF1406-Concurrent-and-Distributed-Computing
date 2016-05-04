@@ -3,7 +3,6 @@ package Controller;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import Model.Parametros;
 
@@ -18,22 +17,19 @@ public class Agendador {
 	}
 	
 	public void multiplicaMatrizes() {
+
+		long tempoInicio = System.currentTimeMillis();	
 		int qtdMatrizes = p.getQtdMatrizes();
-		int m = qtdMatrizes%2;
-		@SuppressWarnings("unchecked")
-		Future<Double>[][][] resultados = new Future[m][][];
-		
-		
-		for (int i = 0; i < m; i++) {	
-			double m1[][] = p.getMatriz(i*2);
-			double m2[][] = p.getMatriz(i*2+1);
-			Multiplicador mult = new Multiplicador(executor,m1,m2);
-			resultados[i] = mult.multiplicaDuasMatrizes();
+		double[][]m1 = p.getMatriz(0);
+		for(int i = 1; i < qtdMatrizes; i++) {
+			
+			double[][]m2 = p.getMatriz(i);
+			Multiplicador ag = new Multiplicador(executor,m1,m2);
+			m1 = ag.multiplicaDuasMatrizes();
 		}
-		
-		
-		
-		
+	
+		p.setMatrizResultado(m1);
+		System.out.println("Tempo gasto em multiplicação: "+(System.currentTimeMillis()-tempoInicio)+" ms");
 	}
 	
 	

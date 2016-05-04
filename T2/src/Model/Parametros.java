@@ -9,7 +9,7 @@ public class Parametros {
 	private int quantidadeThreads;
 	private int quantidadeMatrizes;
 	private String pathArquivoEntrada;
-	
+	private double[][] resultado;
 	
 	public static Parametros getIstance() {
 		
@@ -67,6 +67,14 @@ public class Parametros {
 		System.out.println("Arquivo entrada: "+pathArquivoEntrada);
 		System.out.println("Multiplicando "+quantidadeMatrizes+" matrizes com tamanho "
 		+tamanhoMatriz+"x"+tamanhoMatriz+" em "+quantidadeThreads+" thread(s)");		
+	}
+
+	public double[][] getMatrizResultado() {
+		return resultado;
+	}
+
+	public void setMatrizResultado(double[][] resultado) {
+		this.resultado = resultado;
 	}
 	
 	

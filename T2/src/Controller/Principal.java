@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.LeitorArquivo;
+import Model.GerenciadorArquivos;
 import Model.Parametros;
 
 public class Principal {
@@ -8,7 +8,6 @@ public class Principal {
 	public static void main(String[] args) {
 	
 		String path;
-		
 		
 		if (args.length != 4) {
 			System.out.println("Argumentos Insuficientes");
@@ -37,9 +36,11 @@ public class Principal {
 		
 		p.printParametros();
 	
-		LeitorArquivo input = new LeitorArquivo();
-		input.inputMatrizes();
-		
+		GerenciadorArquivos arq = new GerenciadorArquivos();
+		arq.inputMatrizes();
+		Agendador a = new Agendador();
+		a.multiplicaMatrizes();
+		arq.outputResultado();
 		
 	}
 

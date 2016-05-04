@@ -25,8 +25,9 @@ public class Multiplicador {
 		resultado = new Future[tamMatriz][tamMatriz];
 	}
 	
-	public Future<Double>[][] multiplicaDuasMatrizes() {
+	public double[][] multiplicaDuasMatrizes() {
 
+		double[][] aux = new double[tamMatriz][tamMatriz];
 		
 		for (int i = 0; i < tamMatriz; i++){
 			
@@ -34,7 +35,22 @@ public class Multiplicador {
 				calcula(i, j);
 			}	
 		}
-		return resultado;
+		
+		for (int i = 0; i < tamMatriz; i++) {
+			for (int j  = 0; j < tamMatriz; j++) {
+				try {
+					aux[i][j] = resultado[i][j].get();
+				}
+				catch (Exception e) {
+					System.out.println("Error");
+					System.exit(1);
+				}		
+						
+			}
+		}
+		
+		
+		return aux;
 	}
 
 	private void calcula(int i, int j) {
