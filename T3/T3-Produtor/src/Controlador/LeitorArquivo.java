@@ -1,14 +1,24 @@
 package Controlador;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Scanner;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class LeitorArquivo {
+public class LeitorArquivo implements Runnable {
 
-
+	private String pathInput;
+	private LinkedBlockingQueue<double[][][]> filaMatrizes;
+	private AtomicInteger delaySleep;
+	
+	LeitorArquivo(String arquivoEntrada, LinkedBlockingQueue<double[][][]> fila,AtomicInteger delaySleep) {
+		this.pathInput = arquivoEntrada;
+		this.filaMatrizes = fila;
+		this.delaySleep = delaySleep;
+		
+	}
+	
 	
 	double[][][] inputMatrizes(String path,int size, int numMatrizes) {
 		
@@ -36,6 +46,39 @@ public class LeitorArquivo {
 		}
 		in.close();
 		return vet;
+	}
+
+	@Override
+	public void run() {
+		
+		Scanner scanner = null; 
+		try {
+			scanner = new Scanner(new File(pathInput));
+		}
+		catch(IOException e) {
+			System.out.println(pathInput+"/"+e.getMessage());
+			System.exit(1);
+		}
+		
+		while(scanner.hasNextLine()){
+			
+			String path = scanner.next();
+			int size = scanner.nextInt();
+			int numMatrizes = scanner.nextInt();
+			
+			try {
+				filaMatrizes.put(this.inputMatrizes(path, size, numMatrizes));
+				Thread.sleep(delaySleep.get());
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+		
+		}
+		scanner.close();
+		
+		
+
+		
 	}
 
 
