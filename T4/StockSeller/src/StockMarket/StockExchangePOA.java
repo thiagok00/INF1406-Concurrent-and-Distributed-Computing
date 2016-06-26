@@ -2,28 +2,27 @@ package StockMarket;
 
 
 /**
- * Generated from IDL interface "StockServer".
+ * Generated from IDL interface "StockExchange".
  *
  * @author JacORB IDL compiler V 3.1, 19-Aug-2012
  * @version generated at Jun 26, 2016 12:32:04 PM
  */
 
-public abstract class StockServerPOA
+public abstract class StockExchangePOA
 	extends org.omg.PortableServer.Servant
-	implements org.omg.CORBA.portable.InvokeHandler, StockMarket.StockServerOperations
+	implements org.omg.CORBA.portable.InvokeHandler, StockMarket.StockExchangeOperations
 {
 	static private final java.util.HashMap<String,Integer> m_opsHash = new java.util.HashMap<String,Integer>();
 	static
 	{
-		m_opsHash.put ( "getStockValue", Integer.valueOf(0));
-		m_opsHash.put ( "getStockInfoList", Integer.valueOf(1));
-		m_opsHash.put ( "getStockSymbols", Integer.valueOf(2));
+		m_opsHash.put ( "buyStock", Integer.valueOf(0));
+		m_opsHash.put ( "connectPrinter", Integer.valueOf(1));
 	}
-	private String[] ids = {"IDL:StockMarket/StockServer:1.0"};
-	public StockMarket.StockServer _this()
+	private String[] ids = {"IDL:StockMarket/StockExchange:1.0"};
+	public StockMarket.StockExchange _this()
 	{
 		org.omg.CORBA.Object __o = _this_object() ;
-		StockMarket.StockServer __r = StockMarket.StockServerHelper.narrow(__o);
+		StockMarket.StockExchange __r = StockMarket.StockExchangeHelper.narrow(__o);
 		if (__o != null && __o != __r)
 		{
 			((org.omg.CORBA.portable.ObjectImpl)__o)._set_delegate(null);
@@ -31,10 +30,10 @@ public abstract class StockServerPOA
 		}
 		return __r;
 	}
-	public StockMarket.StockServer _this(org.omg.CORBA.ORB orb)
+	public StockMarket.StockExchange _this(org.omg.CORBA.ORB orb)
 	{
 		org.omg.CORBA.Object __o = _this_object(orb) ;
-		StockMarket.StockServer __r = StockMarket.StockServerHelper.narrow(__o);
+		StockMarket.StockExchange __r = StockMarket.StockExchangeHelper.narrow(__o);
 		if (__o != null && __o != __r)
 		{
 			((org.omg.CORBA.portable.ObjectImpl)__o)._set_delegate(null);
@@ -53,13 +52,13 @@ public abstract class StockServerPOA
 			throw new org.omg.CORBA.BAD_OPERATION(method + " not found");
 		switch ( opsIndex.intValue() )
 		{
-			case 0: // getStockValue
+			case 0: // buyStock
 			{
 			try
 			{
 				java.lang.String _arg0=_input.read_string();
 				_out = handler.createReply();
-				_out.write_float(getStockValue(_arg0));
+				_out.write_boolean(buyStock(_arg0));
 			}
 			catch(StockMarket.UnknownSymbol _ex0)
 			{
@@ -68,16 +67,11 @@ public abstract class StockServerPOA
 			}
 				break;
 			}
-			case 1: // getStockInfoList
+			case 1: // connectPrinter
 			{
+				StockMarket.ExchangePrinter _arg0=StockMarket.ExchangePrinterHelper.read(_input);
 				_out = handler.createReply();
-				StockMarket.StockInfoListHelper.write(_out,getStockInfoList());
-				break;
-			}
-			case 2: // getStockSymbols
-			{
-				_out = handler.createReply();
-				StockMarket.StockSymbolListHelper.write(_out,getStockSymbols());
+				_out.write_boolean(connectPrinter(_arg0));
 				break;
 			}
 		}
