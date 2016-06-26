@@ -2,9 +2,12 @@ package servants;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
+import StockMarket.StockInfo;
 import StockMarket.StockServerPOA;
 import StockMarket.UnknownSymbol;
+import valuetypes.StockInfoImpl;
 
 public class StockServerImpl extends StockServerPOA {
      // As ações com seus respectivos valores
@@ -21,7 +24,7 @@ public class StockServerImpl extends StockServerPOA {
     	 myStock.put("RST", 0.33f);
      }
 
-     public synchronized float getStockValue(String symbol) throws UnknownSymbol {
+     public float getStockValue(String symbol) throws UnknownSymbol {
     	 if (myStock.containsKey(symbol)) {
     		 return myStock.get(symbol);
     	 } else {
@@ -29,7 +32,28 @@ public class StockServerImpl extends StockServerPOA {
     	 }
      }
 
-     public synchronized String[] getStockSymbols() {
+     public String[] getStockSymbols() {
     	 return myStock.keySet().toArray(new String[0]);
      }
+
+	@Override
+	public StockInfo[] getStockInfoList() {
+		
+		StockInfo[] stockList = new StockInfo[myStock.size()];
+		
+		Set<String> keys = myStock.keySet();
+		int i = 0;
+		for (String key : keys){
+			//System.out.println(key);
+			//System.out.println(myStock.get(key));
+			StockInfo stock = new StockInfoImpl();
+			stock.name=key;
+			stock.value=myStock.get(key);
+			stockList[i] = stock;
+			
+			i++;
+		}
+		
+		return stockList;
+	}
 }

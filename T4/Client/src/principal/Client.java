@@ -10,9 +10,12 @@ import org.omg.CORBA.COMM_FAILURE;
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.TRANSIENT;
 
+import StockMarket.StockInfo;
+import StockMarket.StockInfoHelper;
 import StockMarket.StockServer;
 import StockMarket.StockServerHelper;
 import StockMarket.UnknownSymbol;
+import valuetypes.StockInfoFactory;
 
 public class Client {
 
@@ -23,7 +26,8 @@ public class Client {
 			orbProps.setProperty("org.omg.CORBA.ORBClass", "org.jacorb.orb.ORB");
 			orbProps.setProperty("org.omg.CORBA.ORBSingletonClass","org.jacorb.orb.ORBSingleton");
 			// Inicializa o ORB.
-			ORB orb = ORB.init(args, orbProps);
+			org.omg.CORBA_2_3.ORB orb = (org.omg.CORBA_2_3.ORB) ORB.init(args, orbProps);
+			orb.register_value_factory(StockInfoHelper.id(),new StockInfoFactory());
 			
 			// Lê o IOR do arquivo cujo nome é passado como parâmetro
 			BufferedReader reader = new BufferedReader(
@@ -38,20 +42,27 @@ public class Client {
 			StockServer server = StockServerHelper.narrow(obj);
 			
 			System.out.println("Ações de mercado obtidas do StockServer:");
-		      String[] stockSymbols = server.getStockSymbols();
-		      for (int i = 0; i < stockSymbols.length; i++) {
-		        try {
+			//Parte 1
+			/*String[] stockSymbols = server.getStockSymbols();
+			for (int i = 0; i < stockSymbols.length; i++) {
+		    	try {
 					System.out.println(stockSymbols[i] + " "+ server.getStockValue(stockSymbols[i]));
 				} catch (UnknownSymbol e) {
 					System.out.println(e.symbol + " - Nao Encontrado!");
 				}
-		      }
-		    }
-		catch (TRANSIENT e) {
+		    }*/
+			
+			//Parte 2
+			StockInfo[] stockInfoList = server.getStockInfoList();
+			for(StockInfo stockInfo : stockInfoList){
+				System.out.println(stockInfo._toString());
+			}
+		    
+		    
+		} catch (TRANSIENT e) {
 			System.err.println("O serviço encontra-se indisponível.");
 			e.getCause().printStackTrace();
-		}
-		catch (COMM_FAILURE e) {
+		} catch (COMM_FAILURE e) {
 		   	System.err.println("Falha de comunicação com o serviço.");
 		   	e.getCause().printStackTrace();
 		} catch (IOException e) {

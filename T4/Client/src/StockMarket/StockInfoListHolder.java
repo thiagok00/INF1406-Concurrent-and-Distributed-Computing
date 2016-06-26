@@ -1,34 +1,34 @@
 package StockMarket;
 
 /**
- * Generated from IDL alias "StockSymbolList".
+ * Generated from IDL alias "StockInfoList".
  *
  * @author JacORB IDL compiler V 3.1, 19-Aug-2012
  * @version generated at Jun 26, 2016 11:43:31 AM
  */
 
-public final class StockSymbolListHolder
+public final class StockInfoListHolder
 	implements org.omg.CORBA.portable.Streamable
 {
-	public java.lang.String[] value;
+	public StockMarket.StockInfo[] value;
 
-	public StockSymbolListHolder ()
+	public StockInfoListHolder ()
 	{
 	}
-	public StockSymbolListHolder (final java.lang.String[] initial)
+	public StockInfoListHolder (final StockMarket.StockInfo[] initial)
 	{
 		value = initial;
 	}
 	public org.omg.CORBA.TypeCode _type ()
 	{
-		return StockSymbolListHelper.type ();
+		return StockInfoListHelper.type ();
 	}
 	public void _read (final org.omg.CORBA.portable.InputStream in)
 	{
-		value = StockSymbolListHelper.read (in);
+		value = StockInfoListHelper.read (in);
 	}
 	public void _write (final org.omg.CORBA.portable.OutputStream out)
 	{
-		StockSymbolListHelper.write (out,value);
+		StockInfoListHelper.write (out,value);
 	}
 }
