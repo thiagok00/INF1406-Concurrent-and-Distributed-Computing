@@ -1,0 +1,6 @@
+1 - Através da Operação, estamos imprimindo a mensagem da forma que foi montada na implementação da operação. Pelos Campos, podemos montar a mensagem da forma que queremos.
+
+
+2 - Da forma que é feita na parte 2, eu já obtenho todas as informações de todas as ações de uma só vez (com uma só chamada ao objeto distribuído). 
+Da forma feita na parte 1, preciso fazer várias chamadas para primeiro obter os simbolos disponíveis, e a partir desse resultado, realizar chamadas individuais para obter cada valor correspondente a um símbolo.
+Se o objetivo é obter todas as ações e seus preços, o método adotado na parte 2 é o melhor, pois com uma chamada, obtenho tudo o que preciso. Ou tenho todos os dados ou não tenho. Além de, possivelmente, possuir uma mensagem de impressão já feita.  
