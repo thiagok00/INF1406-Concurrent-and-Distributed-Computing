@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<project name="StockMarket" default="javac" basedir=".">
+	
+    <!-- =================================================== -->
+    <!--                   Inicializacao                      -->
+    <!-- ==================================================== -->
+    <target name="init" description="Inicia as propriedades">
+    	<property name="nome" value="StockMarket"/>
+       <property name="idl" value="idl"/>
+       <property name="generated" value="src"/>
+       <property name="jacorb" value="jacorb"/>
+    	<property name="build" value="bin"/>
+    	
+    </target>
+
+    <!-- ==================================================== -->
+    <!--                   IDL compiler                       -->
+    <!-- ==================================================== -->
+    <target name="idl" depends="init" description="Compila as idls">
+      
+    	<delete dir="${generated}/${nome}"/>
+    	
+    	<taskdef name="jacidl" classname="org.jacorb.idl.JacIDL">
+			<classpath>
+		    	<pathelement location="${jacorb}/idl.jar"/>
+		    </classpath>
+		</taskdef>
+      	
+      	<jacidl destdir="${generated}" srcdir="${idl}"/>
+    </target>
+
+	
+	
+	<!-- ==================================================== -->
+	<!--                Java Compiler                         -->
+	<!-- ==================================================== -->
+	<target name="javac" depends="idl" description="Compila o codigo java">
+
+	  <!-- Compila os fontes do src e do gerenerated -->
+	  <javac destdir="${build}" encoding="iso-8859-1">
+	    <compilerarg value="-Xbootclasspath/p:${jacorb}/jacorb.jar"/>
+	    <src path="${generated}"/>
+	    <classpath>
+	      <pathelement location="${jacorb}/jacorb.jar"/>
+	    </classpath>
+	  </javac>
+	</target>
+
+	
+</project>

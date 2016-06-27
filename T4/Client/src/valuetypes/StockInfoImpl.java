@@ -15,7 +15,7 @@ public class StockInfoImpl extends StockInfo {
 	
 	@Override
 	public String _toString() {
-		return "A ação blablabla " + this.name + " tem o valor de: " + this.value;
+		return "A ação " + this.name + " tem o valor de: " + this.value;
 	}
 
 }
