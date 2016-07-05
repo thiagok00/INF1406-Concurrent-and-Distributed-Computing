@@ -13,4 +13,4 @@
     Distributed parallel multiplication matrices with java.rmi (incomplete)
     
 ### T4
-    Stock trading distributed application.
+    Stock trading distributed application with jacORB 
