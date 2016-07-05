@@ -9,7 +9,7 @@ import StockMarket.UnknownSymbol;
 import valuetypes.StockInfoImpl;
 
 public class StockServerImpl extends StockServerPOA {
-     // As ações com seus respectivos valores
+     // As aÃ§Ãµes com seus respectivos valores
      private static HashMap<String, Float> myStock;
      private static StockServerImpl stockServerImpl = null;
      
@@ -25,7 +25,8 @@ public class StockServerImpl extends StockServerPOA {
      
      public static StockServerImpl getInstance(){
     	 if (stockServerImpl == null){
-    		 return new StockServerImpl();
+    		 stockServerImpl = new StockServerImpl();
+    		 return stockServerImpl;
     	 }
     	 return stockServerImpl;
      }
@@ -34,7 +35,7 @@ public class StockServerImpl extends StockServerPOA {
     	 if (myStock.containsKey(symbol)) {
     		 return myStock.get(symbol);
     	 } else {
-    		 throw new UnknownSymbol("Simbolo Não Encontrado!", symbol);
+    		 throw new UnknownSymbol("Simbolo NÃ£o Encontrado!", symbol);
     	 }
      }
 
